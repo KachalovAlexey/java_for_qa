@@ -1,5 +1,6 @@
-package kachalov.javaforqa.addressbook;
+package kachalov.javaforqa.addressbook.tests;
 
+import kachalov.javaforqa.addressbook.model.ContactData;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;

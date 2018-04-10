@@ -1,4 +1,4 @@
-package kachalov.javaforqa.addressbook;
+package kachalov.javaforqa.addressbook.model;
 
 public class ContactData {
     private final String firstname;

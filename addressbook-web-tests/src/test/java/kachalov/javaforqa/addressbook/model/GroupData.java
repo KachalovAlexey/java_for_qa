@@ -1,4 +1,4 @@
-package kachalov.javaforqa.addressbook;
+package kachalov.javaforqa.addressbook.model;
 
 public class GroupData {
     private final String name;
