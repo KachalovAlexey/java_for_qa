@@ -24,4 +24,21 @@ public class ContactHelper extends HelperBase{
         type(By.name("mobile"), contactData.getMobile());
         type(By.name("email"), contactData.getEmail());
     }
+
+    public void selectContact() {
+        click(By.cssSelector("[name=\"entry\"] [type]"));
+    }
+
+    public void deleteSelectedContact() {
+        click(By.cssSelector("[name=\"MainForm\"] [value=\"Delete\"]"));
+        accept();
+    }
+
+    public void initContactModification() {
+        click(By.cssSelector("[name=\"entry\"] [title=\"Edit\"]")); //плохой локатор, находит все кнопки на странице
+    }
+
+    public void submitContactModification() {
+        click(By.cssSelector("[value=\"Update\"]")); //плохой локатор, находит все кнопки на странице
+    }
 }
