@@ -12,12 +12,14 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private NavigationManager navigationManager;
     private GroupHelper groupHelper;
+    private ContactHelper contactHelper;
 
     public void init() {
         wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:/Mozilla Firefox/firefox.exe"));
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(wd);
+        contactHelper = new ContactHelper(wd);
         navigationManager = new NavigationManager(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
@@ -31,11 +33,12 @@ public class ApplicationManager {
         return groupHelper;
     }
 
+    public ContactHelper getContactHelper() {
+        return contactHelper;
+    }
+
     public NavigationManager getNavigationManager() {
         return navigationManager;
     }
 
-    public void gotoGroupPage() {
-        navigationManager.gotoGroupPage();
-    }
 }
