@@ -1,12 +1,12 @@
 package kachalov.javaforqa.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 
 public class NavigationManager extends HelperBase{
 
 
-    public NavigationManager(FirefoxDriver wd) {
+    public NavigationManager(WebDriver wd) {
         super(wd);
     }
 
