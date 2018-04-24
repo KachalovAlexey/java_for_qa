@@ -49,4 +49,15 @@ public class ContactHelper extends HelperBase{
     public void submitContactModification() {
         click(By.cssSelector("[value=\"Update\"]")); //плохой локатор, находит все кнопки на странице
     }
+
+    public void createContact(ContactData contact) {
+        initNewContact();
+        fillContactForm(contact, true);
+        confirmContactCreation();
+
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.cssSelector("[name=\"entry\"] [type]"));
+    }
 }
