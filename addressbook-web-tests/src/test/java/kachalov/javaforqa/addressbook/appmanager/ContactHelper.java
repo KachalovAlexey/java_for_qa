@@ -3,8 +3,12 @@ package kachalov.javaforqa.addressbook.appmanager;
 import kachalov.javaforqa.addressbook.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
@@ -33,8 +37,8 @@ public class ContactHelper extends HelperBase{
         }
     }
 
-    public void selectContact() {
-        click(By.cssSelector("[name=\"entry\"] [type]"));
+    public void selectContact(int index) {
+        wd.findElements(By.cssSelector("[name=\"entry\"] [type]")).get(index).click();
     }
 
     public void deleteSelectedContact() {
@@ -42,8 +46,8 @@ public class ContactHelper extends HelperBase{
         accept();
     }
 
-    public void initContactModification() {
-        click(By.cssSelector("[name=\"entry\"] [title=\"Edit\"]")); //плохой локатор, находит все кнопки на странице
+    public void initContactModification(int index) {
+        wd.findElements(By.cssSelector("[name=\"entry\"] [title=\"Edit\"]")).get(index).click(); //плохой локатор, находит все кнопки на странице
     }
 
     public void submitContactModification() {
@@ -59,5 +63,19 @@ public class ContactHelper extends HelperBase{
 
     public boolean isThereAContact() {
         return isElementPresent(By.cssSelector("[name=\"entry\"] [type]"));
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("tbody [name=\"entry\"]"));
+        for (WebElement element : elements) {
+
+            String firstname = element.findElement(By.cssSelector("tbody [name=\"entry\"] td:nth-of-type(3)")).getText();
+            String lastname = element.findElement(By.cssSelector("tbody [name=\"entry\"] td:nth-of-type(2)")).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData(id, firstname, lastname, null, null, "[none]");
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }

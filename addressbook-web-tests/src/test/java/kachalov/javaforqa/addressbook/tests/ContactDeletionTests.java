@@ -1,7 +1,12 @@
 package kachalov.javaforqa.addressbook.tests;
 
 import kachalov.javaforqa.addressbook.model.ContactData;
+import kachalov.javaforqa.addressbook.model.GroupData;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.Comparator;
+import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
 
@@ -9,12 +14,23 @@ public class ContactDeletionTests extends TestBase {
     public void testContactDeletion() {
 
         app.getNavigationManager().gotoHomePage();
+        List<ContactData> before = app.getContactHelper().getContactList();
         if (! app.getContactHelper().isThereAContact()){
-            app.getContactHelper().createContact(new ContactData("Ivan", "Ivanov", "0123456789", "ivan@test.com", "[none]"));
+            ContactData contact = new ContactData("Ivan", "Ivanov", "0123456789", "ivan@test.com", "[none]");
+            app.getContactHelper().createContact(contact);
+            before.add(contact);
             app.getNavigationManager().gotoHomePage();
         }
-        app.getContactHelper().selectContact();
+        app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().deleteSelectedContact();
         app.getNavigationManager().gotoHomePage();
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() - 1);
+
+        before.remove(before.size() - 1);
+        Comparator<? super ContactData> byID = Comparator.comparingInt(ContactData::getId);
+        before.sort(byID);
+        after.sort(byID);
+        Assert.assertEquals(before, after);
     }
 }

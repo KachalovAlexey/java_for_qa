@@ -4,6 +4,7 @@ import kachalov.javaforqa.addressbook.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class GroupModificationTests extends TestBase{
         List<GroupData> before = app.getGroupHelper().getGroupList();
         app.getGroupHelper().selectGroup(before.size() - 1);
         app.getGroupHelper().initGroupModification();
-        GroupData group = new GroupData(before.get(before.size() - 1).getId(), "test1", "test3", "test4");
+        GroupData group = new GroupData(before.get(before.size() - 1).getId(), "test6", "test3", "test4");
         app.getGroupHelper().fillGroupForm(group);
         app.getGroupHelper().submitGroupModification();
         app.getNavigationManager().gotoGroupPage();
@@ -27,7 +28,10 @@ public class GroupModificationTests extends TestBase{
 
         before.remove(before.size() -1);
         before.add(group);
-        Assert.assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
+        Comparator<? super GroupData> byID = Comparator.comparingInt(GroupData::getId);
+        before.sort(byID);
+        after.sort(byID);
+        Assert.assertEquals(before, after);
     }
 
 }
