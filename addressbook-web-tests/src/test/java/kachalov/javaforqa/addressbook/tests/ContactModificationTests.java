@@ -1,37 +1,45 @@
 package kachalov.javaforqa.addressbook.tests;
 
 import kachalov.javaforqa.addressbook.model.ContactData;
-import org.testng.Assert;
+import kachalov.javaforqa.addressbook.model.Contacts;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.contact().all().size() == 0) {
+            ContactData contact = new ContactData().withFirstname("Petr").withLastname("Petrov").withGroup("[none]");
+            app.contact().create(contact);
+        }
+    }
+
     @Test
     public void testContactModification() {
-
         app.goTo().gotoHomePage();
-        if (! app.getContactHelper().isThereAContact()){
-            app.getContactHelper().createContact(new ContactData("Ivan", "Ivanov", "0123456789", "ivan@test.com", "[none]"));
-            app.goTo().gotoHomePage();
-        }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initContactModification(before.size() - 1);
-        ContactData contact = new ContactData(before.get(before.size() - 1).getId(),"Ivan", "Retrov", "123124155", "qwe@qwe.com", null);
-        app.getContactHelper().fillContactForm(contact, false);
-        app.getContactHelper().submitContactModification();
-        app.goTo().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size());
+        Contacts before = app.contact().all();
+        ContactData modifiedContanct = before.iterator().next();
+        ContactData contact = new ContactData()
+                .withId(modifiedContanct.getId())
+                .withFirstname("Ivan")
+                .withLastname("Ivanov")
+                .withMobile("123124155")
+                .withEmail("qwe@qwe.com")
+                .withGroup(null);
+        app.contact().modify(contact);
+        Contacts after = app.contact().all();
 
-        before.remove(before.size() -1);
-        before.add(contact);
-        Comparator<? super ContactData> byID = Comparator.comparingInt(ContactData::getId);
-        before.sort(byID);
-        after.sort(byID);
-        Assert.assertEquals(before, after);
+
+        assertEquals(after.size(), before.size());
+
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalTo(before.without(modifiedContanct).withAdded(contact)));
 
     }
+
+
 }

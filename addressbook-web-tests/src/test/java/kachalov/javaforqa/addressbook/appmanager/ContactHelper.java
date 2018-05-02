@@ -1,19 +1,22 @@
 package kachalov.javaforqa.addressbook.appmanager;
 
 import kachalov.javaforqa.addressbook.model.ContactData;
+import kachalov.javaforqa.addressbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
     public ContactHelper(WebDriver wd) {
         super(wd);
+    }
+
+    public void returnToContactPage() {
+        click(By.linkText("home"));
     }
 
     public void initNewContact() {
@@ -37,8 +40,8 @@ public class ContactHelper extends HelperBase{
         }
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.cssSelector("[name=\"entry\"] [type]")).get(index).click();
+    public void selectContactByID(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void deleteSelectedContact() {
@@ -46,36 +49,55 @@ public class ContactHelper extends HelperBase{
         accept();
     }
 
-    public void initContactModification(int index) {
-        wd.findElements(By.cssSelector("[name=\"entry\"] [title=\"Edit\"]")).get(index).click(); //плохой локатор, находит все кнопки на странице
+    public void initContactModification(int id) {
+        wd.findElement(By.cssSelector("[href='edit.php?id=" + id + "']")).click();
+
     }
 
     public void submitContactModification() {
         click(By.cssSelector("[value=\"Update\"]")); //плохой локатор, находит все кнопки на странице
     }
 
-    public void createContact(ContactData contact) {
+    public void create(ContactData contact) {
         initNewContact();
         fillContactForm(contact, true);
         confirmContactCreation();
+        returnToContactPage();
+    }
 
+    public void modify(ContactData contact) {
+        initContactModification(contact.getId());
+        fillContactForm(contact, false);
+        submitContactModification();
+        returnToContactPage();
+    }
+
+    public void delete (ContactData contact) {
+        selectContactByID(contact.getId());
+        deleteSelectedContact();
+        returnToContactPage();
     }
 
     public boolean isThereAContact() {
         return isElementPresent(By.cssSelector("[name=\"entry\"] [type]"));
     }
 
-    public List<ContactData> getContactList() {
-        List<ContactData> contacts = new ArrayList<>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.cssSelector("tbody [name=\"entry\"]"));
         for (WebElement element : elements) {
 
             String firstname = element.findElement(By.cssSelector("tbody [name=\"entry\"] td:nth-of-type(3)")).getText();
             String lastname = element.findElement(By.cssSelector("tbody [name=\"entry\"] td:nth-of-type(2)")).getText();
+
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData(id, firstname, lastname, null, null, "[none]");
-            contacts.add(contact);
+
+            contacts.add(new ContactData()
+                    .withId(id)
+                    .withFirstname(firstname)
+                    .withLastname(lastname));
         }
         return contacts;
     }
+
 }
