@@ -49,7 +49,7 @@ public class ContactHelper extends HelperBase{
         accept();
     }
 
-    public void initContactModification(int id) {
+    public void initContactModificationById(int id) {
         wd.findElement(By.cssSelector("[href='edit.php?id=" + id + "']")).click();
 
     }
@@ -67,7 +67,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void modify(ContactData contact) {
-        initContactModification(contact.getId());
+        initContactModificationById(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
         contactsCashe = null;
