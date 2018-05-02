@@ -1,7 +1,6 @@
 package kachalov.javaforqa.addressbook.tests;
 
 import kachalov.javaforqa.addressbook.model.ContactData;
-import kachalov.javaforqa.addressbook.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,17 +12,17 @@ public class ContactDeletionTests extends TestBase {
     @Test
     public void testContactDeletion() {
 
-        app.getNavigationManager().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
         if (! app.getContactHelper().isThereAContact()){
             ContactData contact = new ContactData("Ivan", "Ivanov", "0123456789", "ivan@test.com", "[none]");
             app.getContactHelper().createContact(contact);
             before.add(contact);
-            app.getNavigationManager().gotoHomePage();
+            app.goTo().gotoHomePage();
         }
         app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().deleteSelectedContact();
-        app.getNavigationManager().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() - 1);
 
