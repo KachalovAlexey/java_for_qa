@@ -28,7 +28,7 @@ public class ContactModificationTests extends TestBase {
                 .withFirstname("Ivan")
                 .withLastname("Ivanov")
                 .withMobilePhone("123124155")
-                .withEmail("qwe@qwe.com")
+                .withEmail_1("qwe@qwe.com")
                 .withGroup(null);
         app.contact().modify(contact);
         assertThat(app.contact().count(),equalTo( before.size()));
