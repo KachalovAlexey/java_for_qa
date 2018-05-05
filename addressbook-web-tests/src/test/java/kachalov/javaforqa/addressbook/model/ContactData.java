@@ -5,9 +5,9 @@ public class ContactData {
     private String firstname;
     private String lastname;
     private String address;
-    private String mobile;
-    private String work;
-    private String home;
+    private String mobilePhone;
+    private String workPhone;
+    private String homePhone;
     private String email;
     private String group;
 
@@ -23,8 +23,8 @@ public class ContactData {
         return lastname;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getMobilePhone() {
+        return mobilePhone;
     }
 
     public String getEmail() {
@@ -39,12 +39,12 @@ public class ContactData {
         return address;
     }
 
-    public String getWork() {
-        return work;
+    public String getWorkPhone() {
+        return workPhone;
     }
 
-    public String getHome() {
-        return home;
+    public String getHomePhone() {
+        return homePhone;
     }
 
     public ContactData withId(int id) {
@@ -62,8 +62,8 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withMobile(String mobile) {
-        this.mobile = mobile;
+    public ContactData withMobilePhone(String mobile) {
+        this.mobilePhone = mobile;
         return this;
     }
 
@@ -77,13 +77,13 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withWork(String work) {
-        this.work = work;
+    public ContactData withWorkPhone(String work) {
+        this.workPhone = work;
         return this;
     }
 
-    public ContactData withHome(String home) {
-        this.home = home;
+    public ContactData withHomePhone(String home) {
+        this.homePhone = home;
         return this;
     }
 
@@ -99,9 +99,9 @@ public class ContactData {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", address='" + address + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", work='" + work + '\'' +
-                ", home='" + home + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", homePhone='" + homePhone + '\'' +
                 ", email='" + email + '\'' +
                 ", group='" + group + '\'' +
                 '}';

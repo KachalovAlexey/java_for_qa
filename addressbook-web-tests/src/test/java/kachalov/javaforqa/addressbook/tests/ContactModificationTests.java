@@ -27,7 +27,7 @@ public class ContactModificationTests extends TestBase {
                 .withId(modifiedContanct.getId())
                 .withFirstname("Ivan")
                 .withLastname("Ivanov")
-                .withMobile("123124155")
+                .withMobilePhone("123124155")
                 .withEmail("qwe@qwe.com")
                 .withGroup(null);
         app.contact().modify(contact);

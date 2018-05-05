@@ -31,9 +31,9 @@ public class ContactHelper extends HelperBase{
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("address"), contactData.getAddress());
-        type(By.name("home"), contactData.getHome());
-        type(By.name("mobile"), contactData.getMobile());
-        type(By.name("work"), contactData.getWork());
+        type(By.name("home"), contactData.getHomePhone());
+        type(By.name("mobile"), contactData.getMobilePhone());
+        type(By.name("work"), contactData.getWorkPhone());
         type(By.name("email"), contactData.getEmail());
 
         if (creation){
@@ -48,8 +48,25 @@ public class ContactHelper extends HelperBase{
     }
 
     public void deleteSelectedContact() {
-        click(By.cssSelector("[name=\"MainForm\"] [value=\"Delete\"]"));
+        click(By.cssSelector("[name='MainForm'] [value='Delete']"));
         accept();
+    }
+
+    public ContactData infoFromEditForm(ContactData contact){
+        initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData()
+                .withId(contact.getId())
+                .withFirstname(firstname)
+                .withLastname(lastname)
+                .withHomePhone(home)
+                .withMobilePhone(mobile)
+                .withWorkPhone(work);
     }
 
     public void initContactModificationById(int id) {
@@ -58,7 +75,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void submitContactModification() {
-        click(By.cssSelector("[value=\"Update\"]")); //плохой локатор, находит все кнопки на странице
+        click(By.cssSelector("[value='Update']"));
     }
 
     public void create(ContactData contact) {
@@ -85,7 +102,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public boolean isThereAContact() {
-        return isElementPresent(By.cssSelector("[name=\"entry\"] [type]"));
+        return isElementPresent(By.cssSelector("[name='entry'] [type]"));
     }
     public int count() {
         return wd.findElements(By.name("selected[]")).size();
@@ -100,18 +117,23 @@ public class ContactHelper extends HelperBase{
         }
 
         contactsCashe = new Contacts();
-        List<WebElement> elements = wd.findElements(By.cssSelector("tbody [name=\"entry\"]"));
+        List<WebElement> elements = wd.findElements(By.cssSelector("tbody [name='entry']"));
         for (WebElement element : elements) {
 
-            String firstname = element.findElement(By.cssSelector("tbody [name=\"entry\"] td:nth-of-type(3)")).getText();
-            String lastname = element.findElement(By.cssSelector("tbody [name=\"entry\"] td:nth-of-type(2)")).getText();
+            String firstname = element.findElement(By.cssSelector("tbody [name='entry'] td:nth-of-type(3)")).getText();
+            String lastname = element.findElement(By.cssSelector("tbody [name='entry'] td:nth-of-type(2)")).getText();
+            String allPhones = element.findElement(By.cssSelector("tbody [name='entry'] td:nth-of-type(6)")).getText();
+            String[] phones = allPhones.split("\n"); //не стал избавляться от allPhones, слишком длинная строка получается
 
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
             contactsCashe.add(new ContactData()
                     .withId(id)
                     .withFirstname(firstname)
-                    .withLastname(lastname));
+                    .withLastname(lastname)
+                    .withHomePhone(phones[0])
+                    .withMobilePhone(phones[1])
+                    .withWorkPhone(phones[2]));
         }
         return new Contacts(contactsCashe);
     }
