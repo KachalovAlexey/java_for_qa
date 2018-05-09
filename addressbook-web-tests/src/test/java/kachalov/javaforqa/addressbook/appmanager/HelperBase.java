@@ -29,8 +29,9 @@ public class HelperBase {
         }
     }
 
-    protected void atach(By locator, File file) {
+    protected void atach(By locator, String filePath) {
 
+        File file = new File(filePath);
         if (file != null){
                 wd.findElement(locator).sendKeys(file.getAbsolutePath());
             }

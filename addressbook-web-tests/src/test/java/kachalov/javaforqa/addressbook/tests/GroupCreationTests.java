@@ -7,12 +7,10 @@ import kachalov.javaforqa.addressbook.model.GroupData;
 import kachalov.javaforqa.addressbook.model.Groups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -49,7 +47,7 @@ public class GroupCreationTests extends TestBase{
 
     @Test (dataProvider = "validGroupsFromJSON")
     public void testGroupCreation(GroupData group) {
-        app.goTo().groupPage();
+        //app.goTo().groupPage();
         Groups before = app.group().all();
         app.group().create(group);
         assertThat(app.group().count(),equalTo(before.size() + 1));

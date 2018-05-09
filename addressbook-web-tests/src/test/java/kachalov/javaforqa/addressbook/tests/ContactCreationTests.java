@@ -1,36 +1,63 @@
 package kachalov.javaforqa.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.thoughtworks.xstream.XStream;
 import kachalov.javaforqa.addressbook.model.ContactData;
 import kachalov.javaforqa.addressbook.model.Contacts;
+import kachalov.javaforqa.addressbook.model.GroupData;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase{
 
-    @Test
-    public void testContactCreation() {
+    @DataProvider
+    public Iterator<Object[]> validContactsFromJSON() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
+        String json = "";
+        String line = reader.readLine();
+        while (line != null) {
+            json += line;
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
+        return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    }
 
+    @DataProvider
+    public Iterator<Object[]> validContactsFromXML() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+        String xml = "";
+        String line = reader.readLine();
+        while (line != null) {
+            xml += line;
+            line = reader.readLine();
+        }
+        XStream xstream = new XStream();
+        xstream.processAnnotations(ContactData.class);
+        List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
+        return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    }
+
+    @Test (dataProvider = "validContactsFromXML")
+    public void testContactCreation(ContactData contact) {
         app.goTo().gotoHomePage();
         Contacts before = app.contact().all();
-        String photoPath = "src\\test\\resources\\avatar.png";
-        //File photo = new File(photopath);
-        ContactData contact = new ContactData()
-                .withFirstname("Petr")
-                .withLastname("Petrov")
-                .withAddress("Moscow")
-                .withHomePhone("1234141")
-                .withMobilePhone("987967252")
-                .withWorkPhone("5436236")
-                .withEmail_1("qwe@zxc.com")
-                .withGroup("[none]")
-                .withPhoto(new File(photoPath));
         app.contact().create(contact);
         assertThat(app.contact().count(),equalTo( before.size() + 1));
         Contacts after = app.contact().all();
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
-
-
 }
