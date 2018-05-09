@@ -1,21 +1,37 @@
 package kachalov.javaforqa.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 
+@XStreamAlias("contact")
 public class ContactData {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String firstname;
+    @Expose
     private String lastname;
+    @Expose
     private String address;
+    @Expose
     private String mobilePhone;
+    @Expose
     private String workPhone;
+    @Expose
     private String homePhone;
+    @Expose
     private String email_1;
     private String email_2;
     private String email_3;
     private String allEmails;
+    @Expose
     private String group;
     private String allPhones;
+    @Expose
+    private String photoPath;
     private File photo;
 
 
@@ -69,6 +85,10 @@ public class ContactData {
 
     public String getAllPhones() {
         return allPhones;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
     }
 
     public File getPhoto() {
@@ -137,6 +157,11 @@ public class ContactData {
 
     public ContactData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
+        return this;
+    }
+
+    public ContactData withPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
         return this;
     }
 

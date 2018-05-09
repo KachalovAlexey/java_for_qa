@@ -3,9 +3,7 @@ package kachalov.javaforqa.addressbook.tests;
 import kachalov.javaforqa.addressbook.model.ContactData;
 import kachalov.javaforqa.addressbook.model.Contacts;
 import org.testng.annotations.Test;
-
 import java.io.File;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -16,7 +14,8 @@ public class ContactCreationTests extends TestBase{
 
         app.goTo().gotoHomePage();
         Contacts before = app.contact().all();
-        File photo = new File("src/test/resources/avatar.png");
+        String photoPath = "src\\test\\resources\\avatar.png";
+        //File photo = new File(photopath);
         ContactData contact = new ContactData()
                 .withFirstname("Petr")
                 .withLastname("Petrov")
@@ -26,7 +25,7 @@ public class ContactCreationTests extends TestBase{
                 .withWorkPhone("5436236")
                 .withEmail_1("qwe@zxc.com")
                 .withGroup("[none]")
-                .withPhoto(photo);
+                .withPhoto(new File(photoPath));
         app.contact().create(contact);
         assertThat(app.contact().count(),equalTo( before.size() + 1));
         Contacts after = app.contact().all();

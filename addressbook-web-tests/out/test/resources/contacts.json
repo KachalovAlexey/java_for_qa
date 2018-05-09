@@ -1,0 +1,112 @@
+[
+  {
+    "firstname": "Pavel",
+    "lastname": "Ivanov",
+    "address": "Moscow",
+    "mobilePhone": "+7 (923) 123-23-45",
+    "workPhone": "35987",
+    "homePhone": "78878 78",
+    "email_1": "test@acme.com",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Petr",
+    "lastname": "Sidorov",
+    "address": "Berlin",
+    "mobilePhone": "+102 (4124) 234-2342",
+    "workPhone": "35987",
+    "homePhone": "214 54 1",
+    "email_1": "acme@info.ru",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Petr",
+    "lastname": "Petrov",
+    "address": "Berlin",
+    "mobilePhone": "+96 (23) 12-123-12",
+    "workPhone": "98761",
+    "homePhone": "78878 78",
+    "email_1": "test@acme.com",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Pavel",
+    "lastname": "Petrov",
+    "address": "Berlin",
+    "mobilePhone": "+96 (23) 12-123-12",
+    "workPhone": "35987",
+    "homePhone": "214 54 1",
+    "email_1": "test@acme.com",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Pavel",
+    "lastname": "Ivanov",
+    "address": "Berlin",
+    "mobilePhone": "+7 (923) 123-23-45",
+    "workPhone": "3245",
+    "homePhone": "78878 78",
+    "email_1": "info@test.org",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Pavel",
+    "lastname": "Petrov",
+    "address": "Moscow",
+    "mobilePhone": "+7 (923) 123-23-45",
+    "workPhone": "98761",
+    "homePhone": "12 21 54",
+    "email_1": "info@test.org",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Pavel",
+    "lastname": "Ivanov",
+    "address": "Berlin",
+    "mobilePhone": "+7 (923) 123-23-45",
+    "workPhone": "35987",
+    "homePhone": "78878 78",
+    "email_1": "test@acme.com",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Pavel",
+    "lastname": "Petrov",
+    "address": "Moscow",
+    "mobilePhone": "+102 (4124) 234-2342",
+    "workPhone": "3245",
+    "homePhone": "12 21 54",
+    "email_1": "info@test.org",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Pavel",
+    "lastname": "Sidorov",
+    "address": "Berlin",
+    "mobilePhone": "+102 (4124) 234-2342",
+    "workPhone": "35987",
+    "homePhone": "214 54 1",
+    "email_1": "acme@info.ru",
+    "group": "[none]",
+    "photo": {}
+  },
+  {
+    "firstname": "Pavel",
+    "lastname": "Petrov",
+    "address": "London",
+    "mobilePhone": "+102 (4124) 234-2342",
+    "workPhone": "98761",
+    "homePhone": "78878 78",
+    "email_1": "info@test.org",
+    "group": "[none]",
+    "photo": {}
+  }
+]
