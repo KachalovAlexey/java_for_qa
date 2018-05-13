@@ -15,7 +15,7 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/addressbook</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/addressbook?serverTimezone=UTC</property>
         <property name="connection.username">root</property>
         <property name="connection.password"/>
 
@@ -34,7 +34,7 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">validate</property>
 
-        <mapping resource="kachalov.javaforqa.addressbook.model.GroupData"/>
+        <mapping class="kachalov.javaforqa.addressbook.model.GroupData"/>
 
     </session-factory>
 
