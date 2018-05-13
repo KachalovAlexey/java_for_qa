@@ -3,34 +3,75 @@ package kachalov.javaforqa.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.File;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+
     @Expose
+    @Column(name = "firstname")
     private String firstname;
+
     @Expose
+    @Column(name = "lastname")
     private String lastname;
+
     @Expose
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
+
     @Expose
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilePhone;
+
     @Expose
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
+
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
+
     @Expose
+    @Column(name = "email")
+    @Type(type = "text")
     private String email_1;
+
+    @Transient
     private String email_2;
+
+    @Transient
     private String email_3;
+
+    @Transient
     private String allEmails;
+
     @Expose
+    @Transient
     private String group;
+
+    @Transient
     private String allPhones;
+
     @Expose
+    @Column(name = "photo")
+    @Type(type = "text")
     private String photoPath;
+
+    @Transient
     private File photo;
 
 
@@ -175,16 +216,6 @@ public class ContactData {
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", address='" + address + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
-                ", workPhone='" + workPhone + '\'' +
-                ", homePhone='" + homePhone + '\'' +
-                ", email_1='" + email_1 + '\'' +
-                ", email_2='" + email_2 + '\'' +
-                ", email_3='" + email_3 + '\'' +
-                ", allEmails='" + allEmails + '\'' +
-                ", group='" + group + '\'' +
-                ", allPhones='" + allPhones + '\'' +
                 '}';
     }
 
