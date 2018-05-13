@@ -6,14 +6,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (app.contact().all().size() == 0) {
-            ContactData contact = new ContactData().withFirstname("Petr").withLastname("Petrov").withGroup("[none]");
+        if (app.db().contacts().size() == 0) {
+            ContactData contact = new ContactData().withFirstname("Petr").withLastname("Petrov").withGroup("[none]").withPhotoPath("src/test/resources/avatar.png");
             app.contact().create(contact);
         }
     }
@@ -21,7 +20,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testContactModification() {
         app.goTo().gotoHomePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContanct = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId(modifiedContanct.getId())
@@ -32,7 +31,7 @@ public class ContactModificationTests extends TestBase {
                 .withGroup(null);
         app.contact().modify(contact);
         assertThat(app.contact().count(),equalTo( before.size()));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.without(modifiedContanct).withAdded(contact)));
 
     }

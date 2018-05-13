@@ -19,11 +19,11 @@ public class GroupDataGenerator {
     @Parameter(names = "-c", description = "Group count")
     public int count;
 
-    @Parameter(names = "-f", description = "Target file")
-    public String file;
-
     @Parameter(names = "-d", description = "Data format")
     public String format;
+
+    @Parameter(names = "-f", description = "Target file")
+    public String file;
 
     public static void  main (String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();

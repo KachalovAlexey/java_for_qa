@@ -210,12 +210,20 @@ public class ContactData {
         return this;
     }
 
+
     @Override
     public String toString() {
         return "ContactData{" +
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
+                ", address='" + address + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", email_1='" + email_1 + '\'' +
+                ", email_2='" + email_2 + '\'' +
+                ", email_3='" + email_3 + '\'' +
                 '}';
     }
 
