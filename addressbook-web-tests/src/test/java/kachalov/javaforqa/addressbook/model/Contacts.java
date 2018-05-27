@@ -40,4 +40,16 @@ public class Contacts extends ForwardingSet<ContactData> {
         return contacts;
     }
 
+    public Contacts inGroup (ContactData contact, GroupData group) {
+        Contacts contacts = new Contacts(this);
+        contacts.add(contact.setGroups(group));
+        return contacts;
+    }
+
+    public Contacts notInGroup (ContactData contact, GroupData group) {
+        Contacts contacts = new Contacts(this);
+        contacts.add(contact.removeGroups(group));
+        return contacts;
+    }
+
 }

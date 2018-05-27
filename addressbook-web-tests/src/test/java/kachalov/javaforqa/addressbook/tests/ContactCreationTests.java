@@ -7,6 +7,7 @@ import kachalov.javaforqa.addressbook.model.ContactData;
 import kachalov.javaforqa.addressbook.model.Contacts;
 import kachalov.javaforqa.addressbook.model.GroupData;
 import kachalov.javaforqa.addressbook.model.Groups;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -14,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +54,15 @@ public class ContactCreationTests extends TestBase{
             xstream.processAnnotations(ContactData.class);
             List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
             return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+        }
+    }
+
+    @BeforeClass
+    public void ensurePreconditions () {
+
+        if (app.db().groups().size() <= 0) {
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("Test group"));
         }
     }
 

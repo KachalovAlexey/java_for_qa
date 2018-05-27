@@ -2,6 +2,7 @@ package kachalov.javaforqa.addressbook.appmanager;
 
 import kachalov.javaforqa.addressbook.model.ContactData;
 import kachalov.javaforqa.addressbook.model.Contacts;
+import kachalov.javaforqa.addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,6 +52,14 @@ public class ContactHelper extends HelperBase{
 
     public void selectContactByID(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    public void selectGroupForAddingById(String id) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(id);
+    }
+
+    public void selectGroupById(String id) {
+        new Select(wd.findElement(By.cssSelector("#right [name='group']"))).selectByValue(id);
     }
 
     public void deleteSelectedContact() {
@@ -108,6 +117,18 @@ public class ContactHelper extends HelperBase{
         returnToContactPage();
     }
 
+    public void addToGroup(ContactData contact, GroupData group) {
+        selectContactByID(contact.getId());
+        selectGroupForAddingById(Integer.toString(group.getId()));
+        wd.findElement(By.cssSelector("[type='submit']")).click();
+    }
+
+    public void removeFromGroup(ContactData contact, GroupData group) {
+        selectGroupById(Integer.toString(group.getId()));
+        selectContactByID(contact.getId());
+        wd.findElement(By.cssSelector("#content .left:nth-child(9) [type]")).click();
+    }
+
     public void delete (ContactData contact) {
         selectContactByID(contact.getId());
         deleteSelectedContact();
@@ -118,6 +139,7 @@ public class ContactHelper extends HelperBase{
     public boolean isThereAContact() {
         return isElementPresent(By.cssSelector("[name='entry'] [type]"));
     }
+
     public int count() {
         return wd.findElements(By.name("selected[]")).size();
     }
@@ -154,5 +176,6 @@ public class ContactHelper extends HelperBase{
         }
         return new Contacts(contactsCashe);
     }
+
 
 }

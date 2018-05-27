@@ -68,7 +68,8 @@ public class ContactData {
 
     @Expose
     @Transient
-    private String group;
+    private GroupData group;
+
 
     @Transient
     private String allPhones;
@@ -132,6 +133,10 @@ public class ContactData {
 
     public Groups getGroups() {
         return new Groups(groups);
+    }
+
+    public GroupData getGroup() {
+        return group;
     }
 
     public ContactData withId(int id) {
@@ -199,8 +204,18 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
+    public ContactData withGroup(GroupData group) {
         this.group = group;
+        return this;
+    }
+
+    public ContactData setGroups(GroupData group) {
+        this.groups.add(group);
+        return this;
+    }
+
+    public ContactData removeGroups(GroupData group) {
+        this.groups.remove(group);
         return this;
     }
 
