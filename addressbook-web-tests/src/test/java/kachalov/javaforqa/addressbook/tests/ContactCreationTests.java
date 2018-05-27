@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.XStream;
 import kachalov.javaforqa.addressbook.model.ContactData;
 import kachalov.javaforqa.addressbook.model.Contacts;
 import kachalov.javaforqa.addressbook.model.GroupData;
+import kachalov.javaforqa.addressbook.model.Groups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -56,6 +57,8 @@ public class ContactCreationTests extends TestBase{
 
     @Test (dataProvider = "validContactsFromJSON")
     public void testContactCreation(ContactData contact) {
+        Groups groups = app.db().groups();
+        contact = contact.inGroup(groups.iterator().next());
         app.goTo().gotoHomePage();
         Contacts before = app.db().contacts();
         app.contact().create(contact);

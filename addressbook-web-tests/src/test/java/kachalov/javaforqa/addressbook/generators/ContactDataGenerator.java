@@ -90,7 +90,7 @@ public class ContactDataGenerator {
                     .withMobilePhone(mobilePhone[generate.nextInt(3)])
                     .withWorkPhone(workPhone[generate.nextInt(3)])
                     .withEmail_1(email_1[generate.nextInt(3)])
-                    .withGroup("[none]")
+                    //.withGroup("[none]")
                     .withPhotoPath(photoPath[generate.nextInt(3)]));
         }
         return contacts;
