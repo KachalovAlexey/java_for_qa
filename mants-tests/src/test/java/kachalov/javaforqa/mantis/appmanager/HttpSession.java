@@ -10,9 +10,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.openqa.selenium.remote.http.HttpClient;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
