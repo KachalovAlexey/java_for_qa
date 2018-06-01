@@ -1,5 +1,6 @@
 package kachalov.javaforqa.mantis.appmanager;
 
+import kachalov.javaforqa.mantis.model.UserData;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;

@@ -1,5 +1,6 @@
 package kachalov.javaforqa.mantis.appmanager;
 
+import kachalov.javaforqa.mantis.model.UserData;
 import org.openqa.selenium.By;
 
 public class RegistrationHelper extends HelperBase{
