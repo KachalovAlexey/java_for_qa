@@ -22,16 +22,15 @@ public class SoapHelper {
     }
 
     public Set<Project> getProjects() throws RemoteException, MalformedURLException, ServiceException {
-        MantisConnectPortType mc = new MantisConnectLocator()
-                .getMantisConnectPort(new URL("http://localhost/mantisbt-1.2.20/api/soap/mantisconnect.php"));
-        ProjectData[] projects = mc.mc_projects_get_user_accessible("administrator", "root");
+        MantisConnectPortType mc = getMantisConnect();
+        ProjectData[] projects = mc.mc_projects_get_user_accessible(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
         return Arrays.asList(projects).stream().map(p -> new Project().withId(p.getId().intValue()).withName(p.getName()))
                 .collect(Collectors.toSet());
     }
 
     private MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
         return new MantisConnectLocator()
-                .getMantisConnectPort(new URL("http://localhost/mantisbt-1.2.20/api/soap/mantisconnect.php"));
+                .getMantisConnectPort(new URL(app.getProperty("api.soap")));
     }
 
     public Issue addIssue(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
@@ -48,5 +47,17 @@ public class SoapHelper {
                 .withSummary(createdIssueData.getSummary()).withDescription(createdIssueData.getDescription())
                 .withProject(new Project().withId(createdIssueData.getProject().getId().intValue())
                         .withName(createdIssueData.getProject().getName()));
+    }
+
+    public Issue getIssueById(int id) throws MalformedURLException, ServiceException, RemoteException {
+        MantisConnectPortType mc = getMantisConnect();
+        IssueData issue = mc.mc_issue_get(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"), BigInteger.valueOf(id));
+        return new Issue()
+                .withId(issue.getId().intValue())
+                .withSummary(issue.getSummary())
+                .withDescription(issue.getDescription())
+                .withStatus(issue.getStatus().getName())
+                .withProject(new Project().withId(issue.getProject().getId().intValue())
+                        .withName(issue.getProject().getName()));
     }
 }
