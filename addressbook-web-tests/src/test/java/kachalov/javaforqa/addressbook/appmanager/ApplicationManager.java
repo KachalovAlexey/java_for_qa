@@ -1,5 +1,6 @@
 package kachalov.javaforqa.addressbook.appmanager;
 
+import com.jayway.restassured.RestAssured;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -25,6 +26,7 @@ public class ApplicationManager {
     private ContactHelper contactHelper;
     private String browser;
     private DbHelper dbHelper;
+    private RestHelper restHelper;
 
     public ApplicationManager(String browser){
         this.browser = browser;
@@ -35,6 +37,7 @@ public class ApplicationManager {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         dbHelper = new DbHelper();
+        RestAssured.authentication = RestAssured.basic("278bac5e81d71a7490f9adcf001a7032", "");
         if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:/Mozilla Firefox/firefox.exe"));
         } else if (browser.equals(BrowserType.CHROME)) {
@@ -48,6 +51,7 @@ public class ApplicationManager {
         contactHelper = new ContactHelper(wd);
         navigationManager = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
+        restHelper = new RestHelper(wd);
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
     }
 
@@ -70,6 +74,10 @@ public class ApplicationManager {
 
     public DbHelper db() {
         return dbHelper;
+    }
+
+    public RestHelper rest() {
+        return restHelper;
     }
 
 }

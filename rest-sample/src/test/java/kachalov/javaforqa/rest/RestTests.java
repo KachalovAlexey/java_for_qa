@@ -27,7 +27,7 @@ public class RestTests {
   }
 
   private Set<Issue> getIssues() throws IOException {
-    String json = getExecutor().execute(Request.Get("http://bugify.stqa.ru/api/issues.json"))
+    String json = getExecutor().execute(Request.Get("http://bugify.stqa.ru/api/issues/29.json"))
             .returnContent().asString();
     JsonElement parsed = new JsonParser().parse(json);
     JsonElement issues = parsed.getAsJsonObject().get("issues");

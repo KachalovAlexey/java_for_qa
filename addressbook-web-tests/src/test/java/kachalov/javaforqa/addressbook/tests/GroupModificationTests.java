@@ -5,6 +5,8 @@ import kachalov.javaforqa.addressbook.model.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -12,7 +14,6 @@ public class GroupModificationTests extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions(){
-
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("test1"));
@@ -21,7 +22,9 @@ public class GroupModificationTests extends TestBase{
 
 
     @Test
-    public void testGroupModification(){
+    public void testGroupModification() throws IOException {
+
+        skipIfNotFixed(29);
 
         Groups before = app.db().groups();
         GroupData modifiedGroup = before.iterator().next();
@@ -36,7 +39,4 @@ public class GroupModificationTests extends TestBase{
         Groups after = app.db().groups();
         assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
     }
-
-
-
 }

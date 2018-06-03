@@ -67,7 +67,7 @@ public class ContactCreationTests extends TestBase{
     }
 
     @Test (dataProvider = "validContactsFromJSON")
-    public void testContactCreation(ContactData contact) {
+    public void testContactCreation(ContactData contact) throws IOException {
         Groups groups = app.db().groups();
         contact = contact.inGroup(groups.iterator().next());
         app.goTo().gotoHomePage();

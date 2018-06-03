@@ -1,0 +1,57 @@
+<list>
+  <contact>
+    <firstname>Petr</firstname>
+    <lastname>Petrov</lastname>
+    <address>Berlin</address>
+    <mobilePhone>+7 (923) 123-23-45</mobilePhone>
+    <workPhone>98761</workPhone>
+    <homePhone>12 21 54</homePhone>
+    <email__1>info@test.org</email__1>
+    <group>[none]</group>
+    <photoPath>src/test/resources/avatars/3.png</photoPath>
+  </contact>
+  <contact>
+    <firstname>Petr</firstname>
+    <lastname>Sidorov</lastname>
+    <address>Berlin</address>
+    <mobilePhone>+7 (923) 123-23-45</mobilePhone>
+    <workPhone>98761</workPhone>
+    <homePhone>12 21 54</homePhone>
+    <email__1>info@test.org</email__1>
+    <group>[none]</group>
+    <photoPath>src/test/resources/avatars/2.png</photoPath>
+  </contact>
+  <contact>
+    <firstname>Ivan</firstname>
+    <lastname>Sidorov</lastname>
+    <address>London</address>
+    <mobilePhone>+102 (4124) 234-2342</mobilePhone>
+    <workPhone>35987</workPhone>
+    <homePhone>12 21 54</homePhone>
+    <email__1>info@test.org</email__1>
+    <group>[none]</group>
+    <photoPath>src/test/resources/avatars/1.png</photoPath>
+  </contact>
+  <contact>
+    <firstname>Pavel</firstname>
+    <lastname>Ivanov</lastname>
+    <address>Berlin</address>
+    <mobilePhone>+96 (23) 12-123-12</mobilePhone>
+    <workPhone>98761</workPhone>
+    <homePhone>12 21 54</homePhone>
+    <email__1>test@acme.com</email__1>
+    <group>[none]</group>
+    <photoPath>src/test/resources/avatars/3.png</photoPath>
+  </contact>
+  <contact>
+    <firstname>Petr</firstname>
+    <lastname>Petrov</lastname>
+    <address>Berlin</address>
+    <mobilePhone>+7 (923) 123-23-45</mobilePhone>
+    <workPhone>98761</workPhone>
+    <homePhone>78878 78</homePhone>
+    <email__1>acme@info.ru</email__1>
+    <group>[none]</group>
+    <photoPath>src/test/resources/avatars/1.png</photoPath>
+  </contact>
+</list>
