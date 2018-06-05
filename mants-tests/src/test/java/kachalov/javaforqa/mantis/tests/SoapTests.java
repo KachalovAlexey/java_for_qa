@@ -2,6 +2,7 @@ package kachalov.javaforqa.mantis.tests;
 
 import kachalov.javaforqa.mantis.model.Issue;
 import kachalov.javaforqa.mantis.model.Project;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import javax.xml.rpc.ServiceException;
 import java.net.MalformedURLException;

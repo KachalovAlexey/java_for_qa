@@ -21,7 +21,7 @@ public class PasswordChangeTests extends TestBase{
     public void ensurePreconditions() {
         newPassword = "Qwerty12";
         Users users = app.db().users();
-        user = users.stream().max(Comparator.comparing(UserData::getId)).get();
+        user = users.stream().filter(u -> u.getAccess_level() != 90).findAny().get();
     }
 
     @BeforeMethod

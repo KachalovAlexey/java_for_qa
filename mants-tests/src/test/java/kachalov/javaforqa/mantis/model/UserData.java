@@ -1,6 +1,7 @@
 package kachalov.javaforqa.mantis.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,10 @@ public class UserData {
     @Column
     private String password;
 
+    @Column
+    private short access_level;
+
+
     public int getId() {
         return id;
     }
@@ -40,6 +45,10 @@ public class UserData {
 
     public String getPassword() {
         return password;
+    }
+
+    public short getAccess_level() {
+        return access_level;
     }
 
     public UserData setId(int id) {
@@ -62,6 +71,11 @@ public class UserData {
         return this;
     }
 
+    public UserData setAccess_level(short access_level) {
+        this.access_level = access_level;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "UserData{" +
@@ -69,6 +83,7 @@ public class UserData {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", access_level=" + access_level +
                 '}';
     }
 
